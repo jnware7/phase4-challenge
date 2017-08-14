@@ -27,15 +27,9 @@ const getRecentReview = () => {
     `, [])
 }
 const getAllReviewByAlbum = (albums_id) => {
-  return db.any(`
-      SELECT
-        *
-      FROM
-        reviews
-      ORDER BY
-        logged
-      DESC
-    `, [albums_id])
+  return db.any(
+    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id   WHERE review is not NULL LIMIT 3`
+    , [albums_id])
 }
 
 const getAllReviewByUserId = (users_id) => {
