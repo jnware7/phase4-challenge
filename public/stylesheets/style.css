@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 h2{
-  padding-bottom: 10px
+  padding-bottom: 20px
 }
 .nav{
   width: 100%;
@@ -41,4 +41,21 @@ h2{
 }
 .flex-column{
   width:100%;
+}
+// signin
+form{
+margin-top: 400px;
+}
+.spacer{
+  height:200px;
+}
+// newreview
+
+.new-review{
+  height:400px;
+}
+//albumpage
+
+.container{
+  width: 20%
 }
