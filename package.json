@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "db:create": "createdb vinyl2",
+    "db:drop": "dropdb vinyl2",
+    "db:schema": "psql vinyl2 < db/schema/schema.sql",
+    "db:seed": "psql -d vinyl2 < db/schema/albums.sql ; "
   },
   "dependencies": {
     "body-parser": "~1.17.1",
