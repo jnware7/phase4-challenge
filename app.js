@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const index = require('./routes/index');
 const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use(express.static('public'));
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/reviews', reviews);
 
 const port = process.env.PORT || '3000';
 

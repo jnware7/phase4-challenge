@@ -1,6 +1,6 @@
 const db = require('./database')
 
-const getAllAlbum = () => {
+const getAllAlbums = () => {
   return db.many(`
       SELECT
         *
@@ -9,4 +9,4 @@ const getAllAlbum = () => {
     `, [])
 }
 
-module.exports= {getAllAlbum}
+module.exports= {getAllAlbums}

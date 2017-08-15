@@ -21,11 +21,11 @@
        <h2>Albums</h2>
        <ul class='album-list'>
          <div class='album-name'>
-           <h5>Album Title</h5>
-           <p><i>Artist Name</i></p>
-
-           <h5>Album Title</h5>
-           <p><i>Artist Name</i></p>
+              {{#each albums}}
+           <h5>{{title}}</h5>
+           <p><i>{{artist}}</i></p>
+           <br>
+             {{/each}}
          </div>
        </ul>
     </div>
