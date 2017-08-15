@@ -26,9 +26,17 @@ const getRecentReview = () => {
         3
     `, [])
 }
-const getAllReviewByAlbum = (albums_id) => {
+const getAllReviewByAlbumId = (albums_id) => {
   return db.any(
-    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id   WHERE review is not NULL LIMIT 3`
+    `SELECT
+      *
+    FROM
+      reviews
+    WHERE
+      albums_id = $1
+    ORDER BY
+      logged
+    DESC`
     , [albums_id])
 }
 
@@ -38,13 +46,13 @@ const getAllReviewByUserId = (users_id) => {
         *
       FROM
         reviews
-      ORDER BY
-        logged
-      DESC
       WHERE
         users_id = $1
-    `, [users_id])
+      ORDER BY
+        logged
+      DESC`, [users_id])
 }
+
 const deleteReveiwById = (reviews_id) => {
   return db.none(`
       SELECT
@@ -63,5 +71,6 @@ module.exports = {
   createReview,
   getRecentReview,
   getAllReviewByUserId,
+  getAllReviewByAlbumId,
   deleteReveiwById
 }

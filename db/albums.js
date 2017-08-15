@@ -8,5 +8,18 @@ const getAllAlbums = () => {
         albums
     `, [])
 }
+const getAlbumById = (albums_id) => {
+  return db.one(`
+      SELECT
+        *
+      FROM
+        albums
+      WHERE
+        id= $1
+    `, [albums_id])
+}
 
-module.exports= {getAllAlbums}
+module.exports= {
+  getAllAlbums,
+  getAlbumById
+}

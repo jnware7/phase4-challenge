@@ -7,13 +7,14 @@ const {createReview,
   deleteReveiwById
 }  = require('../db/reviews')
 
-/* GET home page. */
+
 router.get('/', function(req, res) {
   getAllAlbums()
   .then( albums =>{
     res.render('index', {albums: albums});
   }).catch(err => {
-    console.error(err)
+    throw err
+    console.error((err.message), {albums: albums} )
   })
 });
 
