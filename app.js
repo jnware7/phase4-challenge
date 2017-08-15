@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport');
+const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -17,6 +19,10 @@ app.set('view engine', 'hbs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(cookieParser());
 app.use(express.static('public'));
 

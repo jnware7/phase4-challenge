@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const{getAllAlbums, getAlbumById} = require('../db/albums')
 const {createReview,
   getRecentReview,
@@ -7,7 +8,57 @@ const {createReview,
   getAllReviewByAlbumId,
   deleteReveiwById
 }  = require('../db/reviews')
+const {createUser,
+  getUserById,
+  getUserProfileInfoById,
+  getUserByUserName
+} = require('../db/users')
 
+// reviews/:id
+router.get('/:id', (req, res) => {
+  const {id} = req.params
+  Promise.all([
+    getAlbumById(id),
+    getAllReviewByAlbumId(id)
+  ])
+  .then(results => {
+    const albums = results[0]
+    const reviews = results[1]
+    res.render('album-page', {
+      albums: albums,
+      reviews: reviews
+    })
+  }).catch(err => {
+    throw err
+    console.error(err)
+  })
+})
+
+router.use((req, res, next) => {
+  if (req.user) {
+    next()
+  } else {
+    res.redirect('/')
+  }
+})
+
+router.get('/profile', (req, res) => {
+  const userid = req.user.id
+  Promise.all([
+    getUserById(userid),
+    getAllReviewByUserId(userid)
+  ])
+  .then(results => {
+    const user = results[0]
+    const reviews = results[1]
+    res.render('profile', {
+      user: user,
+      reviews: reviews
+    })
+  }).catch(err => {
+    console.error(err)
+  })
+})
 // create new-review
 
 router.post('/:id/new', (req, res) => {
@@ -35,28 +86,6 @@ router.get('/:id/new', function(req, res) {
     console.error((err.message), {albums: albums} )
   })
 });
-
-// reviews/:id
-router.get('/:id', (req, res) => {
-  const {id} = req.params
-  Promise.all([
-    getAlbumById(id),
-    getAllReviewByAlbumId(id)
-  ])
-  .then(results => {
-    const albums = results[0]
-    const reviews = results[1]
-    res.render('album-page', {
-      albums: albums,
-      reviews: reviews
-    })
-  }).catch(err => {
-    throw err
-    console.error(err)
-  })
-})
-
-// reviews/:id
 
 // delete reviews/:id
 router.get('/:id', (req, res) => {

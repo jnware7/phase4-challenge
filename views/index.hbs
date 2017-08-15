@@ -11,8 +11,8 @@
 
       <div class='d-flex justify-content-end nav'>
         <div class='mr-auto logo'>Vinyl</div>
-        <div class='nav-options'>Login</div>
-        <div class='nav-options'>SignUp</div>
+        <div class='nav-options'><a href='/users'>Login</a></div>
+        <div class='nav-options'><a href='/users/new'>SignUp</a></div>
       </div>
 
     <div class='jumbotron'></div>
@@ -22,7 +22,7 @@
        <ul class='album-list'>
          <div class='album-name'>
               {{#each albums}}
-           <h5>{{title}}</h5>
+           <h5><a href=/reviews/{{id}}>{{title}}</a></h5>
            <p><i>{{artist}}</i></p>
            <br>
              {{/each}}
