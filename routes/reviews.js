@@ -34,31 +34,44 @@ router.get('/:id', (req, res) => {
   })
 })
 
-router.use((req, res, next) => {
-  if (req.user) {
-    next()
-  } else {
-    res.redirect('/')
-  }
-})
 
-router.get('/profile', (req, res) => {
-  const userid = req.user.id
-  Promise.all([
-    getUserById(userid),
-    getAllReviewByUserId(userid)
-  ])
-  .then(results => {
-    const user = results[0]
-    const reviews = results[1]
-    res.render('profile', {
-      user: user,
-      reviews: reviews
-    })
-  }).catch(err => {
-    console.error(err)
-  })
-})
+
+// router.get('/profile', (req, res) => {
+//   const userid = req.user.id
+//   Promise.all([
+//     getUserById(userid),
+//     getAllReviewByUserId(userid)
+//   ])
+//   .then(results => {
+//     const user = results[0]
+//     const reviews = results[1]
+//     res.render('profile', {
+//       user: user,
+//       reviews: reviews
+//     })
+//   }).catch(err => {
+//     console.error(err)
+//   })
+// })
+// router.get('/profile', (req, res) => {
+//   const id = req.user.id
+//     getUserById(id)
+//   .then(user => {
+//     res.render('profile', {
+//       user: user
+//     })
+//   }).catch(err => {
+//     console.error(err)
+//   })
+// })
+
+// router.use((req, res, next) => {
+//   if (req.user) {
+//     next()
+//   } else {
+//     res.redirect('/')
+//   }
+// })
 // create new-review
 
 router.post('/:id/new', (req, res) => {
@@ -88,7 +101,7 @@ router.get('/:id/new', function(req, res) {
 });
 
 // delete reviews/:id
-router.get('/:id', (req, res) => {
+router.get('/:id/delete', (req, res) => {
   const {id} = req.params
   deleteReviewById(id)
   .then(() => {

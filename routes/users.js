@@ -46,9 +46,22 @@ router.post('/', function (req, res, next) {
     if (!user) { return res.render('signin', {message: 'Invalid Email or Password'}) }
     req.logIn(user, function (err) {
       if (err) { return next(err) }
-      return res.redirect('/profile')
+      return res.redirect('/users/profile')
     })
   })(req, res, next)
+})
+
+router.get('/profile', (req, res) => {
+  const id = req.user.id
+    getUserById(id)
+    .then(user=> {
+      console.log("user===>" , user)
+    res.render('profile', {
+      user: user
+    })
+  }).catch(err => {
+    console.error(err)
+  })
 })
 
 router.get('/logout', (req, res) => {
