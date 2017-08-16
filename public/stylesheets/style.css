@@ -1,0 +1,61 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+h2{
+  padding-bottom: 20px
+}
+.nav{
+  width: 100%;
+  height: 50px;
+}
+.nav-options{
+  margin-left: 10px;
+}
+.jumbotron{
+    width: 100%;
+    height: 500px;
+}
+.albums-reviews{
+  width: 80%;
+}
+.albums{
+  margin-left: 50px;
+  /*width: 200px;*/
+  height:100%;
+}
+.review{
+  width: 70%;
+  height: 10%;
+}
+.album-date{
+  width: 100%;
+  height: 30px;
+}
+.review-text{
+  width: 100%;
+}
+.flex-column{
+  width:100%;
+}
+// signin
+form{
+margin-top: 400px;
+}
+.spacer{
+  height:200px;
+}
+// newreview
+
+.new-review{
+  height:400px;
+}
+//albumpage
+
+.container{
+  width: 20%
+}
