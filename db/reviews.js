@@ -1,15 +1,14 @@
 const db = require('./database')
 
-const createReview = ( review ) => {
+const createReview = ( options ) => {
   return db.none(`
     INSERT INTO
-      reviews (albums_id, review, users_id, logged)
+      reviews (albums_id, review, users_id)
     VALUES
-      ($1, $2, $3, $4)
-    `,[review.albums_id,
-        reveiw.review,
-        review.users_id,
-        review.logged
+      ($1, $2, $3)
+    `,[options.albums_id,
+        options.review,
+        options.users_id,
       ])
 };
 

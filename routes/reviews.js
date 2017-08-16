@@ -75,16 +75,17 @@ router.get('/:id', (req, res) => {
 // create new-review
 
 router.post('/:id/new', (req, res) => {
-  const id = req.params.id
+  const albums_id= req.params.id
   const users_id = req.user.id
   const review = req.body.review
-  newReview({
+  console.log(review)
+  createReview({
     albums_id: albums_id,
     users_id: users_id,
     review: review
   })
   .then(() => {
-    res.redirect('/profile')
+    res.redirect('/users/profile')
   })
 })
 

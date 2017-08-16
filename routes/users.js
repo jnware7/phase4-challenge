@@ -55,7 +55,6 @@ router.get('/profile', (req, res) => {
   const id = req.user.id
     getUserById(id)
     .then(user=> {
-      console.log("user===>" , user)
     res.render('profile', {
       user: user
     })
