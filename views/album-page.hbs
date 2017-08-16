@@ -24,10 +24,10 @@
         <button type="button" class="btn btn-success"><a href='{{albums.id}}/new'>New Review</a></button>
       </div>
      </div>
-
+{{#each reviews}}
 <div class="d-flex justify-content-center">
-  {{#each reviews}}
       <div class= 'd-flex flex-column review'>
+        
         <div class='d-flex flex-row justify-content-between album-date'>
           <div class='review-album-name'>
             <h5>{{title}}</h5>
@@ -39,8 +39,8 @@
         </div>
         <div class='d-flex justify-content-end review-by'><i>by : {{username}}</i></div>
       </div>
-        {{/each}}
       </div>
+              {{/each}}
          </div>
     </div>
   </body>

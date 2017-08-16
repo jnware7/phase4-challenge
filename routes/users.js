@@ -58,11 +58,12 @@ router.post('/', function (req, res, next) {
   })(req, res, next)
 })
 
+
 router.get('/profile', (req, res) => {
   const userid = req.user.id
   Promise.all([
     getUserById(userid),
-    getAllReviewByAlbumId(userid)
+    getAllReviewByUserId(userid)
   ])
   .then(results => {
     const user = results[0]

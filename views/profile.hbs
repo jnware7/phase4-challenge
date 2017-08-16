@@ -38,11 +38,13 @@
           </div>
           <div class='review-album-date'><i>{{logged}}</i></div>
         </div>
+        <br>
           <div class='d-flex flex-row'>
+            <br>
           <div class='review-text'>
             {{review}}
           </div>
-          <div><a href=/reviews/{{id}}/delete><i class="fa fa-trash-o" aria-hidden="true"></i></a></div>
+          <div class="delete"><a href=/reviews/{{id}}/delete><i class="fa fa-trash-o" aria-hidden="true"></i></a></div>
         </div>
         <div class='d-flex justify-content-end review-by'><i>by : {{username}}</i></div>
         <br>
@@ -50,5 +52,6 @@
       </div>
     </div>
     </div>
+    <script type="text/javascript" src="/javascripts/script.js"></script>
   </body>
 </html>

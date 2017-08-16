@@ -13,40 +13,21 @@ const createReview = ( options ) => {
 };
 
 const getRecentReview = () => {
-  return db.any(`SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id   ORDER BY logged  DESC  LIMIT 3`, [])
+  return db.any(`SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE r.review IS NOT NULL ORDER BY logged  DESC LIMIT 3`, [])
 }
 
 const getAllReviewByAlbumId = (albums_id) => {
   return db.any(
-    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  ORDER BY logged  DESC`
+    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE a.id = $1 AND r.review IS NOT NULL ORDER BY logged  DESC`
     , [albums_id])
 }
 
 const getAllReviewByUserId = (users_id) => {
-  return db.any(`
-      SELECT
-        *
-      FROM
-        reviews
-      WHERE
-        users_id = $1
-      ORDER BY
-        logged
-      DESC`, [users_id])
+  return db.any(`  SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE r.review IS NOT NULL AND u.id=$1 ORDER BY logged  DESC `, [users_id])
 }
 
 const deleteReveiwById = (reviews_id) => {
-  return db.none(`
-      SELECT
-        *
-      FROM
-        reviews
-      ORDER BY
-        logged
-      DESC
-      WHERE
-        reviews_id= $1
-    `, [reviews_id])
+  return db.none(`DELETE FROM reviews WHERE id=$1`, [reviews_id])
 }
 
 module.exports = {

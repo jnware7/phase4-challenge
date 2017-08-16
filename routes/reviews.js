@@ -64,14 +64,25 @@ router.get('/:id', (req, res) => {
 //     console.error(err)
 //   })
 // })
+router.use((req, res, next) => {
+  if (req.user) {
+    next()
+  } else {
+    res.redirect('/')
+  }
+})
+router.get('/:id/new', function(req, res) {
+  const id = req.params.id
+  getAlbumById(id)
+  .then( albums =>{
+    res.render('new-review', {albums: albums});
+  }).catch(err => {
+    throw err
+    console.error((err.message), {albums: albums} )
+  })
+});
 
-// router.use((req, res, next) => {
-//   if (req.user) {
-//     next()
-//   } else {
-//     res.redirect('/')
-//   }
-// })
+
 // create new-review
 
 router.post('/:id/new', (req, res) => {
@@ -90,23 +101,14 @@ router.post('/:id/new', (req, res) => {
 })
 
 // review/new
-router.get('/:id/new', function(req, res) {
-  const id = req.params.id
-  getAlbumById(id)
-  .then( albums =>{
-    res.render('new-review', {albums: albums});
-  }).catch(err => {
-    throw err
-    console.error((err.message), {albums: albums} )
-  })
-});
+
 
 // delete reviews/:id
 router.get('/:id/delete', (req, res) => {
-  const {id} = req.params
-  deleteReviewById(id)
+  const id = req.params.id
+  deleteReveiwById(id)
   .then(() => {
-    res.redirect('/profile')
+    res.redirect('/users/profile')
   }).catch(err => {
     throw err
     console.error(err)
