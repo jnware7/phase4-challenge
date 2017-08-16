@@ -7,6 +7,13 @@ const{
   getUserByEmail
 } = require('../db/users')
 
+const {createReview,
+  getRecentReview,
+  getAllReviewByUserId,
+  getAllReviewByAlbumId,
+  deleteReveiwById
+}  = require('../db/reviews')
+
 const { passport } = require('./auth')
 //
 // const checkIfEmailExists = (req,res, next) => {
@@ -52,11 +59,17 @@ router.post('/', function (req, res, next) {
 })
 
 router.get('/profile', (req, res) => {
-  const id = req.user.id
-    getUserById(id)
-    .then(user=> {
+  const userid = req.user.id
+  Promise.all([
+    getUserById(userid),
+    getAllReviewByAlbumId(userid)
+  ])
+  .then(results => {
+    const user = results[0]
+    const reviews = results[1]
     res.render('profile', {
-      user: user
+      user: user,
+      reviews: reviews
     })
   }).catch(err => {
     console.error(err)

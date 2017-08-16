@@ -18,7 +18,7 @@ const getRecentReview = () => {
 
 const getAllReviewByAlbumId = (albums_id) => {
   return db.any(
-    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE albums_id = 1  ORDER BY logged  DESC`
+    `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  ORDER BY logged  DESC`
     , [albums_id])
 }
 
