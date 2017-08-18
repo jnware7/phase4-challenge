@@ -28,14 +28,17 @@ const { passport } = require('./auth')
 //   .catch( error => res.redirect('/'))
 // }
 
-router.post('/new',  (req, res) => {
+router.post('/new',  (req, res, next) => {
   const username = req.body.username
   const email = req.body.email
   const password = req.body.password
 
   createUser(username, password, email)
     .then(user => {
-      res.redirect('/')
+      req.login(user, function(error){
+        if(error) return next(error)
+        res.redirect('/users/profile')
+      })
     })
 })
 
@@ -60,10 +63,11 @@ router.post('/', function (req, res, next) {
 
 
 router.get('/profile', (req, res) => {
-  const userid = req.user.id
+  console.log(req.user.id)
+  const id = req.user.id
   Promise.all([
-    getUserById(userid),
-    getAllReviewByUserId(userid)
+    getUserById(id),
+    getAllReviewByUserId(id)
   ])
   .then(results => {
     const user = results[0]

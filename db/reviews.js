@@ -1,4 +1,5 @@
 const db = require('./database')
+const moment = require('moment')
 
 const createReview = ( options ) => {
   return db.none(`
@@ -14,12 +15,30 @@ const createReview = ( options ) => {
 
 const getRecentReview = () => {
   return db.any(`SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE r.review IS NOT NULL ORDER BY logged  DESC LIMIT 3`, [])
+    .then(results  => {
+    console.log("before", results)
+    results.forEach(review  => {
+      review.logged = moment(review.logged).format('MMM Do YY')
+      });
+        console.log("after", results)
+    return results
+
+  })
 }
 
 const getAllReviewByAlbumId = (albums_id) => {
   return db.any(
     `SELECT a.artist, a.title, r.id, r.review,r.logged, u.username, u.email FROM albums a LEFT JOIN reviews r ON a.id = r.albums_id LEFT JOIN users u ON  r.users_id = u.id  WHERE a.id = $1 AND r.review IS NOT NULL ORDER BY logged  DESC`
     , [albums_id])
+    .then(results  => {
+    console.log("before", results)
+    results.forEach(review  => {
+      review.logged = moment(review.logged).format('MMM Do YY')
+      });
+        console.log("after", results)
+    return results
+
+  })
 }
 
 const getAllReviewByUserId = (users_id) => {

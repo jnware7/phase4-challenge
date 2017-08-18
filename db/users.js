@@ -1,6 +1,7 @@
 const db = require('./database')
 const bcrypt = require('bcrypt')
 const saltRounds = 12
+const moment = require('moment')
 
 const createUser = (username, password, email) => {
   return bcrypt.hash(password, saltRounds)
